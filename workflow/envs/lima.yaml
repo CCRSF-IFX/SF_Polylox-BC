@@ -1,0 +1,8 @@
+name: lima
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  - lima=2.7.1
+  

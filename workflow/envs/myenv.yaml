@@ -10,6 +10,4 @@ dependencies:
   - numpy
   - biopython
   - pandas
-  - lima
-  - isoseq
-  - minimap2
+
