@@ -1,1 +1,15 @@
-# conda environments needed for the workflow should be stored here.
+# conda environments needed for the workflow.
+name: ploylox
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  - python=3.9
+  - snakemake
+  - numpy
+  - biopython
+  - pandas
+  - lima
+  - isoseq
+  - minimap2

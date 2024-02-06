@@ -2,3 +2,8 @@
 # In case of sample based data, it should be complemented by a samples.tsv file that contains
 # one row per sample. It can be parsed easily via pandas.
 samples: "config/samples.tsv"
+rawpath: "/path/to/rawdata"
+analysispath: "/path/to/analysisfolder"
+projectname: "John_CS011111_6RNASeq_010124"
+conf: "dna_rna"
+archive: "path/to/archive"
