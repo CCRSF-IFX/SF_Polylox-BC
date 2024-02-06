@@ -1,4 +1,4 @@
-# SF High-Res Cell Lineage Mapping: Integrating Polylox Barcodes with Pacbio cell barcodes
+# SF High-Res Cell Lineage Mapping: Integrating Polylox Barcodes with Pacbio Cell Barcodes
 
 This repository contains workflows/scripts for processing Pacbio reads integrated with cell barcodes to Polylox barcodes, generating comprehensive reports and visualizations for Polylox barcode analysis.
 
