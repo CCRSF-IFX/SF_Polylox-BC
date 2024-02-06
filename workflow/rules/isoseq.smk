@@ -23,5 +23,4 @@ rule correct:
     params: whitelist = whitelist
     threads: 16
     log: "logs/isoseq/{sample}.log"
-    shell: "isoseq3 correct --barcodes {params.whitelist} {input} {output} -j 36"
-    
+    shell: "isoseq3 correct --barcodes {params.whitelist} {input} {output} -j 16"

@@ -1,104 +1,82 @@
-# Snakemake workflow: SF_Polylox-BC
+# SF High-Res Cell Lineage Mapping: Integrating Polylox Barcodes with Pacbio cell barcodes
 
-[![Snakemake](https://img.shields.io/badge/snakemake-≥5.7.0-brightgreen.svg)](https://snakemake.bitbucket.io)
-[![Build Status](https://travis-ci.org/snakemake-workflows/SF_Polylox-BC.svg?branch=master)](https://travis-ci.org/snakemake-workflows/SF_Polylox-BC)
+This repository contains workflows/scripts for processing Pacbio reads integrated with cell barcodes to Polylox barcodes, generating comprehensive reports and visualizations for Polylox barcode analysis.
 
-This is the template for a new Snakemake workflow. Replace this text with a comprehensive description covering the purpose and domain.
-Insert your code into the respective folders, i.e. `scripts`, `rules`, and `envs`. Define the entry point of the workflow in the `Snakefile` and the main configuration in the `config.yaml` file.
+## Description
+The project utilizes the innovative Polylox barcode system in conjunction with PacBio sequencing and 10X cell barcodes for high-resolution lineage tracing and cell tracking. Polylox barcodes enable detailed fate mapping within the hematopoietic system through Cre-dependent recombination, creating an extensive array of unique barcodes. PacBio's long-read sequencing captures comprehensive barcode information, ensuring accurate lineage tracing. Additionally, 10X cell barcoding allows single-cell resolution, linking each read to its cell of origin, thus providing a robust platform for dissecting cellular dynamics and understanding the complex interplay of cell differentiation and development at an individual cell level. This integrated approach offers unprecedented insights into cell lineage and fate, crucial for advancing research in developmental biology, stem cell research, and related fields.
 
-## Authors
+The SF Polylox Barcode Processor is designed to read mapped data, perform data transformation and aggregation, and visualize the results in a meaningful way. It supports operations such as reading from BAM files, extracting specific tags, generating FASTA files, and creating visual reports like heatmaps and bar plots to represent the processed data effectively.
 
-* jackchenx3 (@jackchenx3)
+## Features
+This repository presents a streamlined Snakemake pipeline for advanced cell lineage tracing, integrating Polylox barcodes with PacBio and 10X Genomics sequencing. Key features include:
+
+- **Reads Processing**: Utilizes Lima for precise demultiplexing and IsoSeq for read tagging and refinement, ensuring high-quality input data.
+- **Barcode Management**: Incorporates IsoSeq for barcode correction and a custom script for extracting and annotating barcodes, guaranteeing accurate lineage tracing.
+- **Efficient Mapping and Aggregation**: Employs minimap2 for robust read mapping and a custom script for organized data aggregation, facilitating comprehensive analysis.
+- **Comprehensive Outputs**: Generates an array of outputs including BAM, FASTQ, and CSV files, offering both raw and processed data for in-depth analysis.
+- **Parallel Processing and Logging**: Optimized for high-throughput data and parallel processing with dedicated error logging for each step, ensuring efficiency and ease of troubleshooting.
+
+This pipeline provides a complete solution for high-resolution lineage analysis, from sequence processing to data visualization, tailored for efficiency and accuracy.
 
 ## Usage
+Utilizing this pipeline for your research? Remember to acknowledge the authors by citing this repository's URL and its DOI when applicable.
 
-If you use this workflow in a paper, don't forget to give credits to the authors by citing the URL of this (original) repository and, if available, its DOI (see above).
+### Step 1: Obtain a Copy of the Workflow
 
-### Step 1: Obtain a copy of this workflow
+ **Clone the Repository**: Clone the new repository to your local machine, choosing the directory where you want to perform data analysis. Instructions for cloning can be found [here](https://help.github.com/en/articles/cloning-a-repository).
 
-1. Create a new github repository using this workflow [as a template](https://help.github.com/en/articles/creating-a-repository-from-a-template).
-2. [Clone](https://help.github.com/en/articles/cloning-a-repository) the newly created repository to your local system, into the place where you want to perform the data analysis.
-
-### Step 2: Configure workflow
-
-Configure the workflow according to your needs via editing the files in the `config/` folder. Adjust `config.yaml` to configure the workflow execution, and `samples.tsv` to specify your sample setup.
+### Step 2: Configure the Workflow
+Tailor the workflow to your project's requirements:
+- Edit `config.yaml` in the `config/` directory to set up the workflow execution parameters.
+- Modify `samples.tsv` to outline your sample setup, ensuring it reflects your specific data structure and requirements.
 
 ### Step 3: Install Snakemake
+Install Snakemake via conda with the following command:
+```bash
+conda create -c bioconda -c conda-forge -n snakemake snakemake
+```
+### Step 4: Execute the Workflow
 
-Install Snakemake using [conda](https://conda.io/projects/conda/en/latest/user-guide/install/index.html):
-
-    conda create -c bioconda -c conda-forge -n snakemake snakemake
-
-For installation details, see the [instructions in the Snakemake documentation](https://snakemake.readthedocs.io/en/stable/getting_started/installation.html).
-
-### Step 4: Execute workflow
-
-Activate the conda environment:
-
+1. **Activate the Conda Environment**:
+    ```bash
     conda activate snakemake
+    ```
 
-Test your configuration by performing a dry-run via
-
+2. **Test the Configuration**:
+    Perform a dry-run to validate your setup:
+    ```bash
     snakemake --use-conda -n
+    ```
 
-Execute the workflow locally via
-
+3. **Local Execution**:
+    Execute the workflow on your local machine using `$N` cores:
+    ```bash
     snakemake --use-conda --cores $N
+    ```
+    Here, `$N` represents the number of cores you wish to allocate for the workflow.
 
-using `$N` cores or run it in a cluster environment via
-
+4. **Cluster Execution**:
+    For cluster environments, submit the workflow as follows:
+    ```bash
     snakemake --use-conda --cluster qsub --jobs 100
+    ```
+    Replace `100` with the number of jobs you intend to submit simultaneously. Ensure your cluster environment is correctly configured to handle Snakemake jobs.
 
-or
+## Output
 
-    snakemake --use-conda --drmaa --jobs 100
+Upon successful execution, the integrated pipeline comprising the two scripts generates a comprehensive set of files, encapsulating both raw and processed data alongside insightful visualizations. Specifically, the output includes:
 
-If you not only want to fix the software stack but also the underlying OS, use
+### FASTA File:
+- Generated from the BAM file, this file contains the extracted sequence data, providing a foundation for downstream mapping and analysis.
 
-    snakemake --use-conda --use-singularity
+### CSV Files:
+- **Aggregated Data**: A detailed summary of the processed data, including counts, unique Polylox barcodes, and other relevant metrics for each cell barcode.
+- **Cell Counts**: Quantitative data on the occurrence of each cell barcode within the dataset.
+- **Polylox Counts**: A summary of the frequency of each Polylox barcode, offering insights into the distribution and prevalence of lineages.
+- **Segment Assembly**: Aggregated data from the BAM processing and mapping steps, serving as a comprehensive overview of the sequencing output and barcode distribution.
 
-in combination with any of the modes above.
-See the [Snakemake documentation](https://snakemake.readthedocs.io/en/stable/executable.html) for further details.
+### Visualizations (PNG Format):
+- **Heatmap**: A graphical representation of the relationship between cell barcodes and Polylox barcodes, highlighting the distribution and co-occurrence patterns.
+- **Stacked Bar Plot**: A visual breakdown of Polylox barcode counts per cell barcode, providing a clear, comparative view of lineage contributions across different cells.
 
-### Step 5: Investigate results
-
-After successful execution, you can create a self-contained interactive HTML report with all results via:
-
-    snakemake --report report.html
-
-This report can, e.g., be forwarded to your collaborators.
-An example (using some trivial test data) can be seen [here](https://cdn.rawgit.com/snakemake-workflows/rna-seq-kallisto-sleuth/master/.test/report.html).
-
-### Step 6: Commit changes
-
-Whenever you change something, don't forget to commit the changes back to your github copy of the repository:
-
-    git commit -a
-    git push
-
-### Step 7: Obtain updates from upstream
-
-Whenever you want to synchronize your workflow copy with new developments from upstream, do the following.
-
-1. Once, register the upstream repository in your local copy: `git remote add -f upstream git@github.com:snakemake-workflows/SF_Polylox-BC.git` or `git remote add -f upstream https://github.com/snakemake-workflows/SF_Polylox-BC.git` if you do not have setup ssh keys.
-2. Update the upstream version: `git fetch upstream`.
-3. Create a diff with the current version: `git diff HEAD upstream/master workflow > upstream-changes.diff`.
-4. Investigate the changes: `vim upstream-changes.diff`.
-5. Apply the modified diff via: `git apply upstream-changes.diff`.
-6. Carefully check whether you need to update the config files: `git diff HEAD upstream/master config`. If so, do it manually, and only where necessary, since you would otherwise likely overwrite your settings and samples.
-
-
-### Step 8: Contribute back
-
-In case you have also changed or added steps, please consider contributing them back to the original repository:
-
-1. [Fork](https://help.github.com/en/articles/fork-a-repo) the original repo to a personal or lab account.
-2. [Clone](https://help.github.com/en/articles/cloning-a-repository) the fork to your local system, to a different place than where you ran your analysis.
-3. Copy the modified files from your analysis to the clone of your fork, e.g., `cp -r workflow path/to/fork`. Make sure to **not** accidentally copy config file contents or sample sheets. Instead, manually update the example config files if necessary.
-4. Commit and push your changes to your fork.
-5. Create a [pull request](https://help.github.com/en/articles/creating-a-pull-request) against the original repository.
-
-## Testing
-
-Test cases are in the subfolder `.test`. They are automatically executed via continuous integration with [Github Actions](https://github.com/features/actions).
-
+Each output file is designed to offer both detailed, granular data for in-depth analysis and summarized, visual representations for quick insights and comparative studies. This balanced approach ensures that researchers can delve into the specifics of their data while also gaining a broader understanding of their experimental results.
