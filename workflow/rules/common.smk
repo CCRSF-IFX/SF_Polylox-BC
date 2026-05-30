@@ -14,8 +14,8 @@ samplepd = pd.read_csv(config["samples"], sep="\t").set_index("sample", drop=Fal
 samplepd.index.names = ["sample_id"]
 #validate(samplepd, schema="../schemas/samples.schema.yaml")
 
-analysis = config.analysispath
-samples = samplepd["filename"].to_list()
+analysis = config["analysispath"]
+samples = samplepd["sample"].to_list()
 
-primers = config.primers
-whitelist = config.whitelist
+primers = config["primers"]
+whitelist = config["whitelist"]

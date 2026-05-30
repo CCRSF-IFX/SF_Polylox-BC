@@ -7,10 +7,11 @@
 # Allow users to fix the underlying OS via singularity.
 #singularity: "docker://continuumio/miniconda3"
 
-include: "rules/common.smk" 
+include: "rules/common.smk"
 
 rule all:
-    input: expand(sample + ".hifi.bam", sample=samples), expand(sample + "._aggregated_data.csv", sample=samples)
+    input:
+        expand("{sample}._aggregated_data.csv", sample=samples)
 
 include: "rules/lima.smk"
 include: "rules/isoseq.smk"
