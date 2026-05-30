@@ -86,7 +86,7 @@ conda create -c bioconda -c conda-forge -n snakemake snakemake
 
 ## Output
 
-Upon successful execution, the integrated pipeline comprising the two scripts generates a comprehensive set of files, encapsulating both raw and processed data alongside insightful visualizations. Specifically, the output includes:
+After successful execution, the integrated pipeline comprising the two scripts generates a comprehensive set of files, encapsulating both raw and processed data alongside insightful visualizations. Specifically, the output includes:
 
 ### FASTA File:
 - Generated from the BAM file, this file contains the extracted barcode data, providing a foundation for downstream mapping and analysis.
