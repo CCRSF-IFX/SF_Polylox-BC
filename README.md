@@ -86,7 +86,7 @@ conda create -c bioconda -c conda-forge -n snakemake snakemake
 
 ## Output
 
-Upon successful execution, the integrated pipeline comprising the two scripts generates a comprehensive set of files, encapsulating both raw and processed data alongside insightful visualizations. Specifically, the output includes:
+After successful execution, the integrated pipeline comprising the two scripts generates a comprehensive set of files, encapsulating both raw and processed data alongside insightful visualizations. Specifically, the output includes:
 
 ### FASTA File:
 - Generated from the BAM file, this file contains the extracted barcode data, providing a foundation for downstream mapping and analysis.
@@ -102,9 +102,3 @@ Upon successful execution, the integrated pipeline comprising the two scripts ge
 - **Stacked Bar Plot**: A visual breakdown of Polylox barcode counts per cell barcode, providing a clear, comparative view of lineage contributions across different cells.
 
 Each output file is designed to offer both detailed, granular data for in-depth analysis and summarized, visual representations for quick insights and comparative studies. This balanced approach ensures that researchers can delve into the specifics of their data while also gaining a broader understanding of their experimental results.
-
-## Citation:
-Feng et al. eLife 2026;15:RP109553. DOI: https://doi.org/10.7554/eLife.109553
-
-## Contact
-CCRSF_IFX@nih.gov
